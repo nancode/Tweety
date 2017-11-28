@@ -19,7 +19,7 @@
     <div class="row">
 
         <!-- LOCAL INFORMATION -->
-        <div class="col-sm-6">
+        
             <div class="well">
                 <h3>Local</h3>
 
@@ -36,11 +36,11 @@
                 <% } %>
 
             </div>
-        </div>
+       
 
        
         <!-- TWITTER INFORMATION -->
-        <div class="col-sm-6">
+        
             <div class="well">
                 <h3 class="text-info"><span class="fa fa-twitter"></span> Twitter</h3>
 
@@ -48,6 +48,7 @@
                     <p>
                         <strong>id</strong>: <%= user.twitter.id %><br>
                         <strong>token</strong>: <%= user.twitter.token %><br>
+						<strong>token secret</strong>: <%= tsecret %><br>
                         <strong>display name</strong>: <%= user.twitter.displayName %><br>
                         <strong>username</strong>: <%= user.twitter.username %>
                     </p>
@@ -58,7 +59,7 @@
                 <% } %>
 
             </div>
-        </div>
+
 
        
   </div>
