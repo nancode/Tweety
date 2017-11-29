@@ -3,11 +3,15 @@
 // set up ======================================================================
 // get all the tools we need
 var express  = require('express');
+var multer = require('multer');
 var app      = express();
 var port     = process.env.PORT || 3000;
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash    = require('connect-flash');
+const path = require('path');
+const ejs = require('ejs');
+
 
 var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -21,6 +25,13 @@ mongoose.connect(configDB.url); // connect to our database
 
 require('./config/passport')(passport); // pass passport for configuration
 
+// change1
+
+app.use(express.static('./public'));
+
+//change 1 ends here
+
+
 // set up our express application
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
@@ -31,7 +42,7 @@ app.set('view engine', 'ejs'); // set up ejs for templating
 
 // required for passport
 app.use(session({
-    secret: 'ilovescotchscotchyscotchscotch', // session secret
+    secret: 'hiddenconfidentialclassified', // session secret
     resave: true,
     saveUninitialized: true
 }));
@@ -43,5 +54,74 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
 // launch ======================================================================
+
+//////////////////////////////////////////////////////////
+
+const storage = multer.diskStorage({
+    destination: './public/uploads/',
+    filename: function(req, file, cb){
+      cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+  });
+  
+  // Init Upload
+  const upload = multer({
+    storage: storage,
+    limits:{fileSize: 1000000},
+    fileFilter: function(req, file, cb){
+      checkFileType(file, cb);
+    }
+  }).single('Ads');
+  
+  // Check File Type
+  function checkFileType(file, cb){
+    // Allowed ext
+    const filetypes = /jpeg|jpg|png|gif/;
+    // Check ext
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    // Check mime
+    const mimetype = filetypes.test(file.mimetype);
+  
+    if(mimetype && extname){
+      return cb(null,true);
+    } else {
+      cb('Error: Images Only!');
+    }
+  }
+  
+  // Init app
+  
+  
+  // EJS
+  
+  
+  // Public Folder
+  app.get('/adimages', (req, res) => res.render('adimages'));
+  
+  //app.get('/', (req, res) => res.render('profile'));
+  
+  app.post('/upload', (req, res) => {
+    upload(req, res, (err) => {
+      if(err){
+        res.render('adimages', {
+          msg: err
+        });
+      } else {
+        if(req.file == undefined){
+          res.render('adimages', {
+            msg: 'Error: No File Selected!'
+          });
+        } else {
+          res.render('adimages', {
+            msg: 'File Uploaded!',
+            file: `uploads/${req.file.filename}`
+          });
+        }
+      }
+    });
+  });
+
+
+//////////////////////////////////////////////////////////
 app.listen(port);
-console.log('The magic happens on port ' + port);
+

@@ -27,8 +27,8 @@
                 <% if (user.local.email) { %>
                     <p>
                         <strong>id</strong>: <%= user._id %><br>
-                        <strong>email</strong>: <%= user.local.email %><br>
-                        <strong>password</strong>: <%= user.local.password %>
+                        <strong>email</strong>: <%= user.email %><br>
+                        <strong>password</strong>: <%= user.password %>
                     </p>
                     
                     <a href="/unlink/local" class="btn btn-default">Unlink</a>
@@ -60,11 +60,16 @@
                 <% } else { %>
                     <a href="/connect/twitter" class="btn btn-info">Connect Twitter</a>
                 <% } %>
+                <form action="/adimages" method="GET" >
+                    <button type="submit" class="btn">Upload</button>
+                  </form>
 
             </div>
 
 
        
   </div>
+
+
 </body>
 </html>
