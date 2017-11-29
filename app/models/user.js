@@ -10,11 +10,7 @@ var userSchema = mongoose.Schema({
                   type: String,
                   required: true,
                   unique: true},
-        password: {
-                  type: String,
-                  required: true,
-                  select: false
-  }
+        password     : String
     },
     
     twitter          : {

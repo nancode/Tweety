@@ -1,5 +1,5 @@
 // config/database.js
 module.exports = {
 
-    'url' : 'mongodb://localhost/passport'
+    'url' : 'mongodb://admin:admin@ds123956.mlab.com:23956/passport'
 };
