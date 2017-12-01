@@ -7,22 +7,22 @@ var array = [];
 var twitterLogin = function(tokenSecret,token){
 // my secret.json file looks like this:
 // var stream = new Stream({
-//   consumer_key: 'bBWQiDAcB870GQnm4H6Xo9Lah',
-//   consumer_secret: 'XjgyGUjVE3xSMCwmC9uToETa4LK8yRD4On8IlNtUd1dNLCIW92',
+//   consumer_key: 'EK5wP6mpzcYTTTrp1Vipkdm18hHw',
+//   consumer_secret: 'wJWNSw8rFExvqr02aX9tTNvXWZTTTspuOa61elcDz5N1be1XopCeS',
 //   access_token_key: token,
 //   access_token_secret: tokenSecret
 // }
 // );
 var stream = new Stream({
-  consumer_key: 'EK5wP6mpzcYrp1Vipkdm18hHw',
-  consumer_secret: 'wJWNSw8rFExvqr02aX9tTNvXWZspuOa61elcDz5N1be1XopCeS',
+  consumer_key: 'EK5wP6mpzcYTTTrp1Vipkdm18hHw',
+  consumer_secret: 'wJWNSw8rFExvqr02aX9tTNvXWZTTTspuOa61elcDz5N1be1XopCeS',
   access_token_key: token,
   access_token_secret: tokenSecret
 }
 );
   var T = new Twit({
-    consumer_key: 'EK5wP6mpzcYrp1Vipkdm18hHw',
-    consumer_secret: 'wJWNSw8rFExvqr02aX9tTNvXWZspuOa61elcDz5N1be1XopCeS',
+    consumer_key: 'EK5wP6mpzcYTTTrp1Vipkdm18hHw',
+    consumer_secret: 'wJWNSw8rFExvqr02aX9tTNvXWZTTTspuOa61elcDz5N1be1XopCeS',
     access_token: token,
     access_token_secret: tokenSecret
   }
