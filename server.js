@@ -11,6 +11,8 @@ var passport = require('passport');
 var flash    = require('connect-flash');
 const path = require('path');
 const ejs = require('ejs');
+var x= require('./app/x'); //nandhini code
+var user= require('./app/models/user');
 
 
 var morgan       = require('morgan');
@@ -54,9 +56,14 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
 // launch ======================================================================
+var fun = function(a, b) {
+console.log("printing req" + a.twitter.token);
+console.log("printing req" + a.twitter.tokenSecret);
+x.twitterLogin( a.twitter.tokenSecret, a.twitter.token);
 
+}
 //////////////////////////////////////////////////////////
-
+console.log("seesion variable" + passport)
 const storage = multer.diskStorage({
     destination: './public/uploads/',
     filename: function(req, file, cb){
@@ -123,5 +130,10 @@ const storage = multer.diskStorage({
 
 
 //////////////////////////////////////////////////////////
+
+// console.log('key '+token);
+// x.twitterLogin(user.twitter.tokenSecret,user.twitter.token);
+exports.fun = fun;
+
 app.listen(port);
 
