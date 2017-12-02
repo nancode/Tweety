@@ -1,16 +1,14 @@
-var s = require('./../server');
 module.exports = function(app, passport) {
 
 // normal routes ===============================================================
 
-    // show the home page (will also hav    e our login links)
+    // show the home page (will also have our login links)
     app.get('/', function(req, res) {
         res.render('index.ejs');
     });
 
     // PROFILE SECTION =========================
     app.get('/profile', isLoggedIn, function(req, res) {
-       s.fun(req.user,req.user);
         res.render('profile.ejs', {
             user : req.user
         });
@@ -25,6 +23,8 @@ module.exports = function(app, passport) {
 // =============================================================================
 // AUTHENTICATE (FIRST LOGIN) ==================================================
 // =============================================================================
+var multer = require('multer');
+const path = require('path');
 const storage = multer.diskStorage({
     destination: './public/uploads/',
     filename: function(req, file, cb){
