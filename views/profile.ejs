@@ -9,47 +9,33 @@
     </style>
 </head>
 <body>
-<div class="container">
 
-    <div class="page-header text-center">
-        <h1></span> Profile Page</h1>
-         <a href="/auth/twitter" class="btn btn-info"><span class="fa fa-twitter"></span> Twitter</a>
-        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
-    </div>
 
-    <div class="row">
 
-        <!-- LOCAL INFORMATION -->
-        
-            <div class="well">
-                <h3>Local</h3>
 
-                <% if (user.local.email) { %>
-                    <p>
-                        <strong>id</strong>: <%= user._id %><br>
-                        <strong>email</strong>: <%= user.email %><br>
-                        <strong>password</strong>: <%= user.password %>
-                    </p>
-                    
-                    <a href="/unlink/local" class="btn btn-default">Unlink</a>
-                <% } else { %>
-                    <a href="/connect/local" class="btn btn-default">Connect Local</a>
-                <% } %>
+      <div class="jumbotron text-center">
+         
+  
+        <p>Login or Register to upload your Ads:</p>
 
-            </div>
-       
+        <a href="/login" class="btn btn-default"></span> Local Login</a>
+        <a href="/signup" class="btn btn-default"></span> Local Signup</a>
+         </div>
+     </div>
+
+    
+
+ 
 
        
         <!-- TWITTER INFORMATION -->
         
-            <div class="well">
-                <h3 class="text-info"><span class="fa fa-twitter"></span> Twitter</h3>
+            <div class="jumbotron text-center">
+                <h3 class="text-info"><span class="fa fa-twitter"></span>Your Twitter info</h3>
 
                 <% if (user.twitter.token) { %>
                     <p>
-                        <strong>id</strong>: <%= user.twitter.id %><br>
-                        <strong>token</strong>: <%= user.twitter.token %><br>
-                        <strong>token secret</strong>: <%= user.twitter.tokenSecret %><br>
+                       
                         <strong>display name</strong>: <%= user.twitter.displayName %><br>
 						
 
@@ -60,15 +46,13 @@
                 <% } else { %>
                     <a href="/connect/twitter" class="btn btn-info">Connect Twitter</a>
                 <% } %>
-                <form action="/adimages" method="GET" >
-                    <button type="submit" class="btn">Upload</button>
-                  </form>
+               
 
             </div>
-
-
+ 
+ 
        
-  </div>
+
 
 
 </body>

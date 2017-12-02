@@ -23,17 +23,71 @@ module.exports = function(app, passport) {
 // =============================================================================
 // AUTHENTICATE (FIRST LOGIN) ==================================================
 // =============================================================================
+const storage = multer.diskStorage({
+    destination: './public/uploads/',
+    filename: function(req, file, cb){
+      cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+  });
+  
+  // Init Upload
+  const upload = multer({
+    storage: storage,
+    limits:{fileSize: 1000000},
+    fileFilter: function(req, file, cb){
+      checkFileType(file, cb);
+    }
+  }).single('Ads');
+  
+  // Check File Type
+  function checkFileType(file, cb){
+    // Allowed ext
+    const filetypes = /jpeg|jpg|png|gif/;
+    // Check ext
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    // Check mime
+    const mimetype = filetypes.test(file.mimetype);
+  
+    if(mimetype && extname){
+      return cb(null,true);
+    } else {
+      cb('Error: Images Only!');
+    }
+  }
 
     // locally --------------------------------
         // LOGIN ===============================
         // show the login form
+		 app.get('/adimages', function(req, res) {
+            res.render('adimages.ejs');
+        });
+		  app.post('/upload', (req, res) => {
+    upload(req, res, (err) => {
+      if(err){
+        res.render('adimages', {
+          msg: err
+        });
+      } else {
+        if(req.file == undefined){
+          res.render('adimages', {
+            msg: 'Error: No File Selected!'
+          });
+        } else {
+          res.render('adimages', {
+            msg: 'File Uploaded!',
+            file: `uploads/${req.file.filename}`
+          });
+        }
+      }
+});
+ });
         app.get('/login', function(req, res) {
             res.render('login.ejs', { message: req.flash('loginMessage') });
         });
 
         // process the login form
         app.post('/login', passport.authenticate('local-login', {
-            successRedirect : '/profile', // redirect to the secure profile section
+            successRedirect : '/adimages', // redirect to the secure profile section
             failureRedirect : '/login', // redirect back to the signup page if there is an error
             failureFlash : true // allow flash messages
         }));
@@ -46,7 +100,7 @@ module.exports = function(app, passport) {
 
         // process the signup form
         app.post('/signup', passport.authenticate('local-signup', {
-            successRedirect : '/profile', // redirect to the secure profile section
+            successRedirect : 'adimages', // redirect to the secure profile section
             failureRedirect : '/signup', // redirect back to the signup page if there is an error
             failureFlash : true // allow flash messages
         }));
@@ -74,7 +128,7 @@ module.exports = function(app, passport) {
             res.render('connect-local.ejs', { message: req.flash('loginMessage') });
         });
         app.post('/connect/local', passport.authenticate('local-signup', {
-            successRedirect : '/profile', // redirect to the secure profile section
+            successRedirect : 'adimages.ejs', // redirect to the secure profile section
             failureRedirect : '/connect/local', // redirect back to the signup page if there is an error
             failureFlash : true // allow flash messages
         }));
@@ -120,7 +174,7 @@ module.exports = function(app, passport) {
         var user           = req.user;
         user.twitter.token = undefined;
         user.save(function(err) {
-            res.redirect('/profile');
+            res.redirect('/');
         });
     });
 
