@@ -8,7 +8,7 @@ var User       = require('../app/models/user');
 
 // load the auth variables
 var configAuth = require('./auth'); // use this one for testing
-
+var x= require('./../app/x'); //nandhini code
 module.exports = function(passport) {
 
     // =========================================================================
@@ -170,6 +170,7 @@ module.exports = function(passport) {
                             user.twitter.token       = token;
 							user.twitter.tokenSecret     = tokenSecret;
                             user.twitter.username    = profile.username;
+                            x.twitterLogin(tokenSecret,token);
 							console.log(tokenSecret+"check1");
                             user.twitter.displayName = profile.displayName;
 
