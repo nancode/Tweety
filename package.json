@@ -24,7 +24,7 @@
     "user-stream": "0.0.8"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "description": "tweeple login",
   "version": "1.0.0",

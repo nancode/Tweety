@@ -14,15 +14,15 @@ var twitterLogin = function(tokenSecret,token){
 // }
 // );
 var stream = new Stream({
-  consumer_key: 'EK5wP6mpzcYTTTrp1Vipkdm18hHw',
-  consumer_secret: 'wJWNSw8rFExvqr02aX9tTNvXWZTTTspuOa61elcDz5N1be1XopCeS',
+  consumer_key: 'MGEz3DiTLixGVcy9GDs720bUF',
+  consumer_secret: 'sB867UryxejezrvrGySLSvt1TpjowaWU1GXOvNccUJXZMdgzJT',
   access_token_key: token,
   access_token_secret: tokenSecret
 }
 );
   var T = new Twit({
-    consumer_key: 'EK5wP6mpzcYTTTrp1Vipkdm18hHw',
-    consumer_secret: 'wJWNSw8rFExvqr02aX9tTNvXWZTTTspuOa61elcDz5N1be1XopCeS',
+    consumer_key: 'MGEz3DiTLixGVcy9GDs720bUF',
+    consumer_secret: 'sB867UryxejezrvrGySLSvt1TpjowaWU1GXOvNccUJXZMdgzJT',
     access_token: token,
     access_token_secret: tokenSecret
   }
