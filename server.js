@@ -9,7 +9,7 @@ const path = require('path');
 const ejs = require('ejs');
 var x= require('./app/x'); //nandhini code
 var user= require('./app/models/user');
-
+var cookiesession= require('cookie-session');
 
 var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -39,17 +39,28 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs'); // set up ejs for templating
 
 // required for passport
-app.use(session({
-    secret: 'hiddenconfidentialclassified', // session secret
-    resave: true,
-    saveUninitialized: true
-}));
+//app.use(session({
+ //   secret: 'hiddenconfidentialclassified', // session secret
+ //   resave: true,
+  //  saveUninitialized: true
+//}));
+app.use(cookiesession({ secret: 'hidden', 
+cookie: { maxAge: 1000*60*60*24*30, 
+httpOnly: true
+ } }));
+
+if(user.session === null ||user.session === undefined){
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 // routes ======================================================================
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+}
+else{
+	console.log("usersession "+user.session ) ;
+}
+
 
 // launch ======================================================================
 var fun = function(a, b) {
