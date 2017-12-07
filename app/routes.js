@@ -1,14 +1,14 @@
 var s = require('./../server');
 module.exports = function(app, passport) {
 
-// normal routes ===============================================================
 
-    // show the home page (will also have our login links)
+
+  
     app.get('/', function(req, res) {
         res.render('index.ejs');
     });
 
-    // PROFILE SECTION =========================
+    
     app.get('/profile', isLoggedIn, function(req, res) {
 		s.fun(req.user,req.user);
         res.render('profile.ejs', {
@@ -16,15 +16,13 @@ module.exports = function(app, passport) {
         });
     });
 
-    // LOGOUT ==============================
+ 
     app.get('/logout', function(req, res) {
         req.logout();
         res.redirect('/');
     });
 
-// =============================================================================
-// AUTHENTICATE (FIRST LOGIN) ==================================================
-// =============================================================================
+
 var multer = require('multer');
 const path = require('path');	
 const storage = multer.diskStorage({
@@ -34,7 +32,7 @@ const storage = multer.diskStorage({
     }
   });
   
-  // Init Upload
+
   const upload = multer({
     storage: storage,
     limits:{fileSize: 1000000},
@@ -43,13 +41,13 @@ const storage = multer.diskStorage({
     }
   }).single('Ads');
   
-  // Check File Type
+
   function checkFileType(file, cb){
-    // Allowed ext
+   
     const filetypes = /jpeg|jpg|png|gif/;
-    // Check ext
+ 
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-    // Check mime
+   
     const mimetype = filetypes.test(file.mimetype);
   
     if(mimetype && extname){
@@ -59,9 +57,7 @@ const storage = multer.diskStorage({
     }
   }
 
-    // locally --------------------------------
-        // LOGIN ===============================
-        // show the login form
+  
 		 app.get('/adimages', function(req, res) {
             res.render('adimages.ejs');
         });
@@ -89,32 +85,31 @@ const storage = multer.diskStorage({
             res.render('login.ejs', { message: req.flash('loginMessage') });
         });
 
-        // process the login form
+        
         app.post('/login', passport.authenticate('local-login', {
-            successRedirect : '/adimages', // redirect to the secure profile section
-            failureRedirect : '/login', // redirect back to the signup page if there is an error
-            failureFlash : true // allow flash messages
+            successRedirect : '/adimages', 
+            failureRedirect : '/login', 
+            failureFlash : true 
         }));
 
-        // SIGNUP =================================
-        // show the signup form
+      
         app.get('/signup', function(req, res) {
             res.render('signup.ejs', { message: req.flash('signupMessage') });
         });
 
-        // process the signup form
+        
         app.post('/signup', passport.authenticate('local-signup', {
-            successRedirect : 'adimages', // redirect to the secure profile section
-            failureRedirect : '/signup', // redirect back to the signup page if there is an error
-            failureFlash : true // allow flash messages
+            successRedirect : 'adimages', 
+            failureRedirect : '/signup', 
+            failureFlash : true 
         }));
 
-    // twitter --------------------------------
+   
 
-        // send to twitter to do the authentication
+       
         app.get('/auth/twitter', passport.authenticate('twitter', { scope : 'email' }));
 
-        // handle the callback after twitter has authenticated the user
+       
         app.get('/auth/twitter/callback',
             passport.authenticate('twitter', {
                 successRedirect : '/profile',
@@ -123,28 +118,25 @@ const storage = multer.diskStorage({
 
 
    
-// =============================================================================
-// AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============
-// =============================================================================
 
-    // locally --------------------------------
+
+   
         app.get('/connect/local', function(req, res) {
             res.render('connect-local.ejs', { message: req.flash('loginMessage') });
         });
         app.post('/connect/local', passport.authenticate('local-signup', {
-            successRedirect : 'adimages.ejs', // redirect to the secure profile section
-            failureRedirect : '/connect/local', // redirect back to the signup page if there is an error
-            failureFlash : true // allow flash messages
+            successRedirect : 'adimages.ejs', 
+            failureRedirect : '/connect/local',
+            failureFlash : true
         }));
 
    
 
-    // twitter --------------------------------
+   
 
-        // send to twitter to do the authentication
+       
         app.get('/connect/twitter', passport.authorize('twitter', { scope : 'email' }));
 
-        // handle the callback after twitter has authorized the user
         app.get('/connect/twitter/callback',
             passport.authorize('twitter', {
                 successRedirect : '/profile',
@@ -154,14 +146,7 @@ const storage = multer.diskStorage({
 
    
 
-// =============================================================================
-// UNLINK ACCOUNTS =============================================================
-// =============================================================================
-// used to unlink accounts. for social accounts, just remove the token
-// for local account, remove email and password
-// user account will stay active in case they want to reconnect in the future
 
-    // local -----------------------------------
     app.get('/unlink/local', isLoggedIn, function(req, res) {
         var user            = req.user;
         user.local.email    = undefined;
@@ -173,7 +158,6 @@ const storage = multer.diskStorage({
 
    
 
-    // twitter --------------------------------
     app.get('/unlink/twitter', isLoggedIn, function(req, res) {
         var user           = req.user;
         user.twitter.token = undefined;
@@ -187,7 +171,7 @@ const storage = multer.diskStorage({
 
 };
 
-// route middleware to ensure user is logged in
+
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
         return next();

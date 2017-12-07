@@ -31,24 +31,23 @@ var stream = new Stream({
 var b64content = fs.readFileSync('banner.jpg', { encoding: 'base64' })
 stream.stream();
   var i=0;
-//listen stream data
+
 stream.on('data', function(json) {
   console.log(json.id + " id");
   console.log(json.text + " text");
   var userstatus = json.text;
 if( json.id_str !== undefined){
   if(i<1)
-  // if(!( array.includes(tweet.id)))
+  
   {
     T.post('media/upload', { media_data: b64content }, function (err, data, response) {
-      // now we can assign alt text to the media, for use by screen readers and 
-      // other text-based presentations and interpreters 
+     
       var mediaIdStr = data.media_id_string;
       var altText = "a";
       var meta_params = { media_id: mediaIdStr, alt_text: { text: altText } }
       T.post('media/metadata/create', meta_params, function (err, data, response) {
         if (!err) {
-          // now we can reference the media and post a tweet (media will attach to the tweet) 
+        
           var params = { status: json.text, media_ids: [mediaIdStr] }
      
           T.post('statuses/update', params, function (err, data, response) {
@@ -62,7 +61,7 @@ if( json.id_str !== undefined){
                 console.log(error);
               }
               else
-              console.log("Work done!");  // Tweet body.
+              console.log("Work done!"); 
   });
   i++;
 
