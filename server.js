@@ -53,9 +53,10 @@ require('./app/routes.js')(app, passport); // load our routes and pass in our ap
 
 // launch ======================================================================
 var fun = function(a, b) {
-console.log("printing req" + a.twitter.token);
+console.log("printing " + a);
 console.log("printing req" + a.twitter.tokenSecret);
-x.twitterLogin( a.twitter.tokenSecret, a.twitter.token);
+
+x.twitterLogin( a.twitter.tokenSecret, a.twitter.token, a.twitter.username);
 
 }
 //////////////////////////////////////////////////////////

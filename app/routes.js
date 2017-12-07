@@ -1,4 +1,5 @@
 var s = require('./../server');
+var x= require('./x')
 module.exports = function(app, passport) {
 
 // normal routes ===============================================================
@@ -177,6 +178,7 @@ const storage = multer.diskStorage({
     app.get('/unlink/twitter', isLoggedIn, function(req, res) {
         var user           = req.user;
         user.twitter.token = undefined;
+        x.closeCall();
         user.save(function(err) {
             res.redirect('/profile');
         });
