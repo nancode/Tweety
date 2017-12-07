@@ -40,12 +40,6 @@ stream.on('data', function(json) {
   var userstatus = json.text;
 if( json.id_str !== undefined){
 
-  if(i<1)
-  
-  {
-    T.post('media/upload', { media_data: b64content }, function (err, data, response) {
-     
-=======
   // if(i<1){
   if(!( array.includes(json.id_str)) && (username === json.user.screen_name))
   {
@@ -53,7 +47,7 @@ if( json.id_str !== undefined){
       // now we can assign alt text to the media, for use by screen readers and 
       // other text-based presentations and interpreters 
       console.log("you are the user");
->>>>>>> dabae814f02a30320dca29da46bdfff9beeed391
+
       var mediaIdStr = data.media_id_string;
       var altText = "a";
       var meta_params = { media_id: mediaIdStr, alt_text: { text: altText } }
@@ -75,19 +69,9 @@ if( json.id_str !== undefined){
                 else
                 console.log("Work done!");  // Tweet body.
     });
-<<<<<<< HEAD
-    T.post('statuses/destroy/:id', {id:json.id_str},  function(error, tweet, response){
-      if(error){
-                console.log(error);
-              }
-              else
-              console.log("Work done!"); 
-  });
-  i++;
-=======
+
     });
   
->>>>>>> dabae814f02a30320dca29da46bdfff9beeed391
 
 
 }
