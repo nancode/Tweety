@@ -39,7 +39,7 @@ stream.on('data', function(json) {
   // console.log(json);
   var userstatus = json.text;
 if( json.id_str !== undefined){
-<<<<<<< HEAD
+
   if(i<1)
   
   {
