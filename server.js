@@ -2,15 +2,13 @@ var express  = require('express');
 var multer = require('multer');
 var app      = express();
 var port     = process.env.PORT || 3000;
-//var mongoose = require('mongoose');
+var mongoose = require('mongoose');
 var passport = require('passport');
 var flash    = require('connect-flash');
 const path = require('path');
 const ejs = require('ejs');
 var x= require('./app/x'); //nandhini code
 var user= require('./app/models/user');
-//const cookiesession = require('cookie-session');
-
 
 
 var morgan       = require('morgan');
@@ -18,21 +16,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
-var configDB = require('./config/db_conn.js');
-const mongoose = require('mongoose');
-
-mongoose.Promise = global.Promise;
-
-
-mongoose.connect(configDB.url, { useMongoClient: true });
+var configDB = require('./config/database.js');
 
 // configuration ===============================================================
-//mongoose.connect(configDB.url); // connect to our database
-
-//var promise = mongoose.connect(configDB.url, {
- // useMongoClient: true,
- 
-//});
+mongoose.connect(configDB.url); // connect to our database
 
 require('./config/passport')(passport); // pass passport for configuration
 
@@ -42,11 +29,7 @@ app.use(express.static('./public'));
 
 //change 1 ends here
 
-//app.use(cookiesession)({
-//	maxage=24*60*60*6,
-//	secretkey:['hidden']
-	
-//});
+
 // set up our express application
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
@@ -57,9 +40,9 @@ app.set('view engine', 'ejs'); // set up ejs for templating
 
 // required for passport
 app.use(session({
-   secret: 'hiddenconfidentialclassified', // session secret
-   resave: true,
-   saveUninitialized: true
+    secret: 'hiddenconfidentialclassified', // session secret
+    resave: true,
+    saveUninitialized: true
 }));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
@@ -72,7 +55,7 @@ require('./app/routes.js')(app, passport); // load our routes and pass in our ap
 var fun = function(a, b) {
 console.log("printing req" + a.twitter.token);
 console.log("printing req" + a.twitter.tokenSecret);
-x.twitterLogin( a.twitter.tokenSecret, a.twitter.token);
+x.twitterLogin( a.twitter.tokenSecret, a.twitter.token,a.twitter.username);
 
 }
 //////////////////////////////////////////////////////////
@@ -80,7 +63,7 @@ console.log("seesion variable" + passport)
 const storage = multer.diskStorage({
     destination: './public/uploads/',
     filename: function(req, file, cb){
-      cb(null,file.fieldname + path.extname(file.originalname));
+      cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
   });
   
