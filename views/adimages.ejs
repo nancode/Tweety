@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- 
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
   
-  <title>Tweety Ad Ventures</title>
+  <title>Tweeple</title>
 </head>
 <body>
   <div class="container">
-    <div class="text-center">
-    <h3>Tweety Ad ventures</h3>
+  <div class="col-sm-6 col-sm-offset-3">
+    <h3>Tweeple</h3>
     <%= typeof msg != 'undefined' ? msg : '' %>
     <form action="/upload" method="POST" enctype="multipart/form-data">
       <div class="file-field input-field">
-        <div class="btn btn-info">
+        <div class="btn grey">
           <span>File</span>
           <input name="Ads" type="file">
         </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text">
         </div>
-        <div>
-            <p>
-            <label>Iterations Required</label></br>
-            <input name="count" type="text" class="validate">
-        </div>
+      </div>
       <button type="submit" class="btn">Submit</button>
 	 <div> 
       <p>
@@ -33,8 +33,13 @@
     <br>
     <img src="<%= typeof file != 'undefined' ? file : '' %>" class="responsive-img">
   </div>
+  <a href="/logout" class="btn btn-default btn-sm">Logout</a>
   </div>
 
-  
+  <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>  
 </body>
 </html>

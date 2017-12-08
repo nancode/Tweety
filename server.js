@@ -1,8 +1,9 @@
 var express  = require('express');
 var multer = require('multer');
 var app      = express();
-var port     = process.env.PORT || 3000;
+var port     = 3000;
 var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 var passport = require('passport');
 var flash    = require('connect-flash');
 const path = require('path');
@@ -39,31 +40,34 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs'); // set up ejs for templating
 
 // required for passport
-//app.use(session({
- //   secret: 'hiddenconfidentialclassified', // session secret
- //   resave: true,
-  //  saveUninitialized: true
-//}));
-app.use(cookiesession({ secret: 'hidden', 
-cookie: { maxAge: 1000*60*60*24*30, 
-httpOnly: true
- } }));
-
+app.use(session({
+  secret: 'hiddenconfidentialclassified', // session secret
+ resave: true,
+   saveUninitialized: true
+}));
+//app.use(cookiesession({ secret: 'hidden', 
+//cookie: { maxAge: 1000*60*60*24*30, 
+//httpOnly: true
+ //} }));
+//console.log("line 54 in server "+session);
 if(user.session === null ||user.session === undefined){
+	
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
-app.use(flash()); // use connect-flash for flash messages stored in session
+app.use(flash());
+ // use connect-flash for flash messages stored in session
 
 // routes ======================================================================
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 }
 else{
-	console.log("usersession "+user.session ) ;
+//	console.log("usersession "+user.session ) ;
 }
 
 
 // launch ======================================================================
 var fun = function(a, b) {
+	
 console.log("printing req" + a.twitter.token);
 console.log("printing req" + a.twitter.tokenSecret);
 x.twitterLogin( a.twitter.tokenSecret, a.twitter.token,a.twitter.username);

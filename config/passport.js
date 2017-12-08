@@ -17,7 +17,7 @@ module.exports = function(passport) {
     passport.serializeUser(function(user, checkuser) {
 		
         checkuser(null, user.id);
-		console.log(user.id+"in passport line 23");
+		//console.log(user.id+"in passport line 23");
     });
 
 
@@ -108,7 +108,7 @@ module.exports = function(passport) {
                     
                     if (user) {
                         return checkuser(null, false, req.flash('loginMessage', 'That email is already taken.'));
-                        // Using 'loginMessage instead of signupMessage because it's used by /connect/local'
+                      
                     } else {
                         var user = req.user;
                         user.local.email = email;

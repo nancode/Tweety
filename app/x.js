@@ -25,7 +25,8 @@ var stream = new Stream({
   }
 );
 openConnection = true;
-var b64content = fs.readFileSync('banner.jpg', { encoding: 'base64' })
+img_path ='./public/uploads/Ads-1512357439932.jpg'
+var b64content = fs.readFileSync(img_path, { encoding: 'base64' })
 stream.stream();
   var i=0;
 
@@ -44,7 +45,8 @@ if( json.id_str !== undefined){
   if(!( array.includes(json.id_str)) && (username === json.user.screen_name))
   {
     T.post('media/upload', { media_data: b64content }, function (err, data, response) {
-       
+      // now we can assign alt text to the media, for use by screen readers and 
+      // other text-based presentations and interpreters 
       console.log("you are the user");
 
       var mediaIdStr = data.media_id_string;
