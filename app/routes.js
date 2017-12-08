@@ -1,5 +1,6 @@
 var s = require('./../server');
 var twitterLogic= require('./twitterLogic')
+var count=5;
 module.exports = function(app, passport) {
 
 
@@ -69,6 +70,7 @@ const storage = multer.diskStorage({
             res.render('adimages.ejs');
         });
 		  app.post('/upload', (req, res) => {
+            
     upload(req, res, (err) => {
       if(err){
         res.render('adimages', {
@@ -80,7 +82,14 @@ const storage = multer.diskStorage({
             msg: 'Error: No File Selected!'
           });
         } else {
+            var user = req.user;
+            user.local.file_name= req.file.filename;
+            user.local.count= count;
+            user.save();
+        
           res.render('adimages', {
+          
+
             msg: 'File Uploaded!',
             file: `uploads/${req.file.filename}`
           });
