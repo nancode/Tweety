@@ -7,7 +7,7 @@ var passport = require('passport');
 var flash    = require('connect-flash');
 const path = require('path');
 const ejs = require('ejs');
-var x= require('./app/x'); //nandhini code
+var twitterLogic= require('./../Tweety/app/twitterLogic');
 var user= require('./app/models/user');
 var cookiesession= require('cookie-session');
 
@@ -66,7 +66,7 @@ else{
 var fun = function(a, b) {
 console.log("printing req" + a.twitter.token);
 console.log("printing req" + a.twitter.tokenSecret);
-x.twitterLogin( a.twitter.tokenSecret, a.twitter.token,a.twitter.username);
+twitterLogic.twitterLogin( a.twitter.tokenSecret, a.twitter.token,a.twitter.username);
 
 }
 //////////////////////////////////////////////////////////

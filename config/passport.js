@@ -5,11 +5,10 @@ var TwitterAuth  = require('passport-twitter').Strategy;
 
 
 var User       = require('../app/models/user');
+var twitterLogic= require('./../app/twitterLogic');
 
 
 
-
-var x= require('./../app/x'); //nandhini code
 module.exports = function(passport) {
 
 
@@ -17,7 +16,6 @@ module.exports = function(passport) {
     passport.serializeUser(function(user, checkuser) {
 		
         checkuser(null, user.id);
-		console.log(user.id+"in passport line 23");
     });
 
 
@@ -144,7 +142,6 @@ module.exports = function(passport) {
 
     
         process.nextTick(function() {
-			//console.log(tokenSecret+"checking if there is data")
 
             
             if (!req.user) {
@@ -159,8 +156,7 @@ module.exports = function(passport) {
                             user.twitter.token       = token;
 							user.twitter.tokenSecret     = tokenSecret;
                             user.twitter.username    = profile.username;
-                            x.twitterLogin(tokenSecret,token);
-							console.log(tokenSecret+"check1");
+                            twitterLogic.twitterLogin(tokenSecret,token);
                             user.twitter.displayName = profile.displayName;
 
                             user.save(function(err) {
@@ -179,7 +175,6 @@ module.exports = function(passport) {
                         newUser.twitter.id          = profile.id;
                         newUser.twitter.token       = token;
 						newUser.twitter.tokenSecret     = tokenSecret;
-						console.log(tokenSecret+"check1");
                         newUser.twitter.username    = profile.username;
                         newUser.twitter.displayName = profile.displayName;
 
@@ -200,7 +195,6 @@ module.exports = function(passport) {
                 user.twitter.token       = token;
 				user.twitter.tokenSecret     = tokenSecret;
                 user.twitter.username    = profile.username;
-				console.log(tokenSecret+"check1");
                 user.twitter.displayName = profile.displayName;
 
                 user.save(function(err) {
