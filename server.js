@@ -115,6 +115,8 @@ const storage = multer.diskStorage({
   //app.get('/', (req, res) => res.render('profile'));
   
   app.post('/upload', (req, res) => {
+
+    console.log(req.body.num);
     upload(req, res, (err) => {
       if(err){
         res.render('adimages', {
@@ -143,6 +145,3 @@ const storage = multer.diskStorage({
 exports.fun = fun;
 
 app.listen(port);
-console.log("in server line 48 "+passport.user);
-
-console.log('The app listening on port ' + port);

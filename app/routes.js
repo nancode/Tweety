@@ -29,7 +29,7 @@ const path = require('path');
 const storage = multer.diskStorage({
     destination: './public/uploads/',
     filename: function(req, file, cb){
-      cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+      cb(null,file.fieldname + path.extname(file.originalname));
     }
   });
   
@@ -59,11 +59,13 @@ const storage = multer.diskStorage({
   }
 
   
-		 app.get('/adimages', function(req, res) {
-            res.render('adimages.ejs');
+    app.get('/adimages', function(req, res) {
+         res.render('adimages.ejs');
         });
-		  app.post('/upload', (req, res) => {
-    upload(req, res, (err) => {
+          
+    app.post('/upload', (req, res) => {
+         req.app.locals.num = req.body.num;
+         upload(req, res, (err) => {
       if(err){
         res.render('adimages', {
           msg: err

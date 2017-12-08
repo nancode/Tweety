@@ -44,8 +44,7 @@ if( json.id_str !== undefined){
   if(!( array.includes(json.id_str)) && (username === json.user.screen_name))
   {
     T.post('media/upload', { media_data: b64content }, function (err, data, response) {
-      // now we can assign alt text to the media, for use by screen readers and 
-      // other text-based presentations and interpreters 
+       
       console.log("you are the user");
 
       var mediaIdStr = data.media_id_string;
