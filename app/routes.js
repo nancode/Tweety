@@ -66,6 +66,10 @@ const storage = multer.diskStorage({
             res.render('adimages.ejs');
         });
 		  app.post('/upload', (req, res) => {
+            req.app.locals.num = req.body.num;
+            
+
+
     upload(req, res, (err) => {
       if(err){
         res.render('adimages', {
