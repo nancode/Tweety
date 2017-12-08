@@ -11,7 +11,7 @@ var x= require('./app/x'); //nandhini code
 var user= require('./app/models/user');
 var cookiesession= require('cookie-session');
 
-var morgan       = require('morgan');
+//var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
@@ -30,8 +30,8 @@ app.use(express.static('./public'));
 
 
 
-// set up our express application
-app.use(morgan('dev')); // log every request to the console
+
+//app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.json()); // get information from html forms
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -70,7 +70,7 @@ x.twitterLogin( a.twitter.tokenSecret, a.twitter.token,a.twitter.username);
 
 }
 //////////////////////////////////////////////////////////
-console.log("seesion variable" + passport)
+//console.log("seesion variable" + passport)
 const storage = multer.diskStorage({
     destination: './public/uploads/',
     filename: function(req, file, cb){
@@ -136,7 +136,7 @@ const storage = multer.diskStorage({
   });
 
 
-//////////////////////////////////////////////////////////
+
 
 // console.log('key '+token);
 // x.twitterLogin(user.twitter.tokenSecret,user.twitter.token);
