@@ -7,23 +7,23 @@ var TwitterAuth  = require('passport-twitter').Strategy;
 var User       = require('../app/models/user');
 
 
-var configAuth = require('./auth');
+
 
 var x= require('./../app/x'); //nandhini code
 module.exports = function(passport) {
 
 
  
-    passport.serializeUser(function(user, done) {
+    passport.serializeUser(function(user, checkuser) {
 		
-        done(null, user.id);
+        checkuser(null, user.id);
 		console.log(user.id+"in passport line 23");
     });
 
 
-    passport.deserializeUser(function(id, done) {
+    passport.deserializeUser(function(id, checkuser) {
         User.findById(id, function(err, user) {
-            done(err, user);
+            checkuser(err, user);
         });
     });
 
@@ -34,7 +34,7 @@ module.exports = function(passport) {
         passwordField : 'password',
         passReqToCallback : true 
     },
-    function(req, email, password, done) {
+    function(req, email, password, checkuser) {
         if (email)
             email = email.toLowerCase(); 
 
@@ -43,17 +43,17 @@ module.exports = function(passport) {
             User.findOne({ 'local.email' :  email }, function(err, user) {
              
                 if (err)
-                    return done(err);
+                    return checkuser(err);
 
                 if (!user)
-                    return done(null, false, req.flash('loginMessage', 'No user found.'));
+                    return checkuser(null, false, req.flash('loginMessage', 'No user '));
 
                 if (!user.validPassword(password))
-                    return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+                    return checkuser(null, false, req.flash('loginMessage', ' password did not match'));
 
               
                 else
-                    return done(null, user);
+                    return checkuser(null, user);
             });
         });
 
@@ -66,7 +66,7 @@ module.exports = function(passport) {
         passwordField : 'password',
         passReqToCallback : true 
     },
-    function(req, email, password, done) {
+    function(req, email, password, checkuser) {
         if (email)
             email = email.toLowerCase(); 
 
@@ -77,11 +77,11 @@ module.exports = function(passport) {
                 User.findOne({ 'local.email' :  email }, function(err, user) {
                  
                     if (err)
-                        return done(err);
+                        return checkuser(err);
 
                     // check to see if theres already a user with that email
                     if (user) {
-                        return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                        return checkuser(null, false, req.flash('signupMessage', 'That email is already taken.'));
                     } else {
 
                         // create the user
@@ -92,23 +92,22 @@ module.exports = function(passport) {
 
                         newUser.save(function(err) {
                             if (err)
-                                return done(err);
+                                return checkuser(err);
 
-                            return done(null, newUser);
+                            return checkuser(null, newUser);
                         });
                     }
 
                 });
-            // if the user is logged in but has no local account...
+           
             } else if ( !req.user.local.email ) {
-                // ...presumably they're trying to connect a local account
-                // BUT let's check if the email used to connect a local account is being used by another user
+               
                 User.findOne({ 'local.email' :  email }, function(err, user) {
                     if (err)
-                        return done(err);
+                        return checkuser(err);
                     
                     if (user) {
-                        return done(null, false, req.flash('loginMessage', 'That email is already taken.'));
+                        return checkuser(null, false, req.flash('loginMessage', 'That email is already taken.'));
                         // Using 'loginMessage instead of signupMessage because it's used by /connect/local'
                     } else {
                         var user = req.user;
@@ -116,15 +115,15 @@ module.exports = function(passport) {
                         user.local.password = user.generateHash(password);
                         user.save(function (err) {
                             if (err)
-                                return done(err);
+                                return checkuser(err);
                             
-                            return done(null,user);
+                            return checkuser(null,user);
                         });
                     }
                 });
             } else {
-                // user is logged in and already has a local account. Ignore signup. (You should log out before trying to create a new account, user!)
-                return done(null, req.user);
+                
+                return checkuser(null, req.user);
             }
 
         });
@@ -135,24 +134,24 @@ module.exports = function(passport) {
     
     passport.use(new TwitterAuth({
 
-        consumerKey     : configAuth.twitterAuth.consumerKey,
-        consumerSecret  : configAuth.twitterAuth.consumerSecret,
-        callbackURL     : configAuth.twitterAuth.callbackURL,
-        passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
+        consumerKey     : 'MGEz3DiTLixGVcy9GDs720bUF',
+        consumerSecret  : 'sB867UryxejezrvrGySLSvt1TpjowaWU1GXOvNccUJXZMdgzJT',
+        callbackURL     : 'http://localhost:3000/auth/twitter/callback',
+        passReqToCallback : true 
 
     },
-    function(req, token, tokenSecret, profile, done) {
+    function(req, token, tokenSecret, profile, checkuser) {
 
-        // asynchronous
+    
         process.nextTick(function() {
-			console.log(tokenSecret+"checking if there is data")
+			//console.log(tokenSecret+"checking if there is data")
 
-            // check if the user is already logged in
+            
             if (!req.user) {
 
                 User.findOne({ 'twitter.id' : profile.id }, function(err, user) {
                     if (err)
-                        return done(err);
+                        return checkuser(err);
 
                     if (user) {
                         // if there is a user id already but no token (user was linked at one point and then removed)
@@ -166,13 +165,13 @@ module.exports = function(passport) {
 
                             user.save(function(err) {
                                 if (err)
-                                    return done(err);
+                                    return checkuser(err);
                                     
-                                return done(null, user);
+                                return checkuser(null, user);
                             });
                         }
 
-                        return done(null, user); // user found, return that user
+                        return checkuser(null, user); // user found, return that user
                     } else {
                         // if there is no user, create them
                         var newUser                 = new User();
@@ -186,9 +185,9 @@ module.exports = function(passport) {
 
                         newUser.save(function(err) {
                             if (err)
-                                return done(err);
+                                return checkuser(err);
                                 
-                            return done(null, newUser);
+                            return checkuser(null, newUser);
                         });
                     }
                 });
@@ -206,9 +205,9 @@ module.exports = function(passport) {
 
                 user.save(function(err) {
                     if (err)
-                        return done(err);
+                        return checkuser(err);
                         
-                    return done(null, user);
+                    return checkuser(null, user);
                 });
             }
 

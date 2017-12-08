@@ -123,7 +123,7 @@ const storage = multer.diskStorage({
 
    
         app.get('/connect/local', function(req, res) {
-            res.render('connect-local.ejs', { message: req.flash('loginMessage') });
+            res.render('localsingin.ejs', { message: req.flash('loginMessage') });
         });
         app.post('/connect/local', passport.authenticate('local-signup', {
             successRedirect : 'adimages.ejs', 

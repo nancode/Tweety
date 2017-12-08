@@ -14,38 +14,15 @@
 
  
  
-<div class="container">
 
-    <div class="text-center">
-    <form action="/upload" method="POST" enctype="multipart/form-data">
-      <div class="file-field input-field">
-        <div class="btn grey">
-          <span>File</span>
-          <input name="Ads" type="file">
-        </div>
-        <div class="file-path-wrapper">
-          <input class="file-path validate" type="text">
-        </div>
-      </div>
-      <button type="submit" class="btn btn-info">Submit</button>
-      
-
-    </form>
-    <br>
-    <img src="<%= typeof file != 'undefined' ? file : '' %>" class="responsive-img">
-  
-  
-  </div>
-  </div>
-    
 
  
 
        
-        <!-- TWITTER INFORMATION -->
-        
-            <div class="jumbotron text-center">
-                <h3 class="text-info"><span class="fa fa-twitter"></span>Your Twitter info</h3>
+ <div class="text-center">
+       
+            
+                <h3 >Your Twitter info</h3>
 
                 <% if (user.twitter.token) { %>
                     <p>
@@ -64,9 +41,30 @@
 
             </div>
  
- 
-       
 
+
+       
+<div class="text-center">
+   <h3 >upload image</h3>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+      <div class="file-field input-field">
+        <div class="btn grey">
+          <span>File</span>
+          <input name="Ads" type="file">
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text">
+        </div>
+      </div>
+      <button type="submit" class="btn btn-info">Submit</button>
+      
+
+    </form>
+    <br>
+    <img src="<%= typeof file != 'undefined' ? file : '' %>" class="responsive-img">
+  
+ 
+</div>
 
 
 </body>
