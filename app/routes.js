@@ -6,13 +6,7 @@ module.exports = function(app, passport) {
 
   
     app.get('/', function(req, res){ 
-       if( req.user !== null && req.user !== undefined){
-        if(req.user.id !== null || req.user.id !== undefined){
-            res.redirect("/profile");
-        } else{
-            res.render('index.ejs');}}
-        else{
-        res.render('index.ejs');}
+        res.render('index.ejs');
     });
 
     
