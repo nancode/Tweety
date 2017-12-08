@@ -1,8 +1,10 @@
 var s = require('./../server');
-var twitterLogic= require('./twitterLogic')
+var x= require('./x')
 module.exports = function(app, passport) {
 
 
+
+  
     app.get('/', function(req, res){ 
        if( req.user !== null && req.user !== undefined){
         if(req.user.id !== null || req.user.id !== undefined){
@@ -158,7 +160,6 @@ const storage = multer.diskStorage({
         var user            = req.user;
         user.local.email    = undefined;
         user.local.password = undefined;
-        
         user.save(function(err) {
             res.redirect('/profile');
         });
@@ -169,7 +170,7 @@ const storage = multer.diskStorage({
     app.get('/unlink/twitter', isLoggedIn, function(req, res) {
         var user           = req.user;
         user.twitter.token = undefined;
-        twitterLogic.closeCall();
+        x.closeCall();
         user.save(function(err) {
             res.redirect('/profile');
         });

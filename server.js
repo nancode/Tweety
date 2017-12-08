@@ -7,7 +7,7 @@ var passport = require('passport');
 var flash    = require('connect-flash');
 const path = require('path');
 const ejs = require('ejs');
-var twitterLogic= require('./app/twitterLogic'); //nandhini code
+var x= require('./app/x'); //nandhini code
 var user= require('./app/models/user');
 var cookiesession= require('cookie-session');
 
@@ -58,15 +58,16 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 }
 else{
-	// console.log("usersession "+user.session ) ;
+	console.log("usersession "+user.session ) ;
 }
 
 
 // launch ======================================================================
 var fun = function(a, b) {
-// console.log("printing req" + a.twitter.token);
-// console.log("printing req" + a.twitter.tokenSecret);
-twitterLogic.twitterLogin( a.twitter.tokenSecret, a.twitter.token,a.twitter.username);
+console.log("printing req" + a.twitter.token);
+console.log("printing req" + a.twitter.tokenSecret);
+x.twitterLogin( a.twitter.tokenSecret, a.twitter.token,a.twitter.username);
+
 }
 //////////////////////////////////////////////////////////
 //console.log("seesion variable" + passport)
