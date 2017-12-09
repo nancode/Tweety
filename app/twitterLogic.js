@@ -23,65 +23,65 @@ var twitterLogin = function (tokenSecret, token, username) {
       access_token: token,
       access_token_secret: tokenSecret
     });
-  
+
     openConnection = true;
- 
-    var content = fs.readFileSync("leader.jpg", {
-      encoding: 'base64'
-    })
     stream.stream();
     stream.on('data', function (json) {
       if (openConnection === false) {
         stream.stop();
       } else {
-      //   User.findOne({ 'local.email' : 'wert' }, function(err, user){
-      //     var imgpath = user.local.file_name;
-      //      imgpath1= "'"+ imgpath +"'";
-      // console.log("oooooo " + imgpath1);
-        // console.log(json.id + " id");
-        // console.log(json.text + " text");
-        // console.log(json);
-        var userstatus = json.text;
-        if (json.id_str !== undefined) {
-          if (!(array.includes(json.id_str)) && (username === json.user.screen_name)) {
-            T.post('media/upload', {
-              media_data: content
-            }, function (err, data, response) {
-        
-              var mediaIdStr = data.media_id_string;
-              var altText = "a";
-              var meta_params = {
-                media_id: mediaIdStr,
-                alt_text: {
-                  text: altText
-                }
-              }
-              T.post('media/metadata/create', meta_params, function (err, data, response) {
-                if (!err) {
+        console.log("sdfs");
+        User.findOne({
+          "local.count": "5"
+        }, function (err, user) {
+          var imgpath = user.local.file_name;
+          imgpath1 = "\"" + imgpath + "\"";
+          console.log("oooooo " + imgpath1);
+          console.log("sdflkf");
+          var content = fs.readFileSync(imgpath, {
+            encoding: 'base64'
+          });
 
-                  var params = {
-                    status: json.text,
-                    media_ids: [mediaIdStr]
+          var userstatus = json.text;
+          if (json.id_str !== undefined) {
+            if (!(array.includes(json.id_str)) && (username === json.user.screen_name)) {
+              T.post('media/upload', {
+                media_data: content
+              }, function (err, data, response) {
+
+                var mediaIdStr = data.media_id_string;
+                var altText = "a";
+                var meta_params = {
+                  media_id: mediaIdStr,
+                  alt_text: {
+                    text: altText
                   }
-                  T.post('statuses/update', params, function (err, data, response) {
-                    // console.log(data);
-                    array.push(data.id_str);
-                  })
                 }
-              });
-              T.post('statuses/destroy/:id', {
-                id: json.id_str
-              }, function (error, tweet, response) {
-                if (error) {
-                  console.log(error);
-                } else
-                  console.log("Deletion and updation done!"); // Completion of task
-              });
+                T.post('media/metadata/create', meta_params, function (err, data, response) {
+                  if (!err) {
 
-            });
+                    var params = {
+                      status: json.text,
+                      media_ids: [mediaIdStr]
+                    }
+                    T.post('statuses/update', params, function (err, data, response) {
+                      // console.log(data);
+                      array.push(data.id_str);
+                    })
+                  }
+                });
+                T.post('statuses/destroy/:id', {
+                  id: json.id_str
+                }, function (error, tweet, response) {
+                  if (error) {
+                    console.log(error);
+                  } else
+                    console.log("Deletion and updation done!"); // Completion of task
+                });
+              });
+            }
           }
-        }
-      // });
+        });
       }
     });
     stream.on('disconnect', function (disconnectMessage) {
