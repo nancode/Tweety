@@ -4,21 +4,10 @@
     <title>Tweeple</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     
-    <style>
-        body         { padding-top:80px; word-wrap:break-word; }
-    </style>
+   
 </head>
 <body>
-
-
-
- 
- 
-
-
- 
-
-   <div class="container">    
+<div class="container">    
 
     <div class="text-center">
         <h1>Tweeple</h1>
@@ -26,18 +15,18 @@
     <div class="page-header text">
   <a href="/logout" class="btn btn-default btn-sm">Logout</a>
 
-	<br>
-	<br>
+
 	</div>
             
                 <h3 >Your Twitter info</h3>
-				 <br>
- <br>
+				 
+ 
  
 
                 <% if (user.twitter.token) { %>
                     <p>
                        
+  <img src="https://avatars.io/twitter/<%= user.twitter.username %>" class="img-thumbnail"><br>
                         <strong>display name</strong>: <%= user.twitter.displayName %><br>
 						
 

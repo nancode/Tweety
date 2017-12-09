@@ -59,8 +59,8 @@ module.exports = function(passport) {
     }));
 
   
-    passport.use('local-signup', new LocalAuth({
-        // by default, local strategy uses username and password, we will override with email
+    passport.use('usersignup', new LocalAuth({
+       
         usernameField : 'email',
         passwordField : 'password',
         passReqToCallback : true 
@@ -78,22 +78,22 @@ module.exports = function(passport) {
                     if (err)
                         return checkuser(err);
 
-                    // check to see if theres already a user with that email
+               
                     if (user) {
                         return checkuser(null, false, req.flash('signupMessage', 'That email is already taken.'));
                     } else {
 
-                        // create the user
-                        var newUser            = new User();
+                       
+                        var store            = new User();
 
-                        newUser.local.email    = email;
-                        newUser.local.password = newUser.generateHash(password);
+                        store.local.email    = email;
+                        store.local.password = store.generateHash(password);
 
-                        newUser.save(function(err) {
+                        store.save(function(err) {
                             if (err)
                                 return checkuser(err);
 
-                            return checkuser(null, newUser);
+                            return checkuser(null, store);
                         });
                     }
 
@@ -106,7 +106,7 @@ module.exports = function(passport) {
                         return checkuser(err);
                     
                     if (user) {
-                        return checkuser(null, false, req.flash('loginMessage', 'That email is already taken.'));
+                        return checkuser(null, false, req.flash('loginMessage', 'Username is already taken.'));
                       
                     } else {
                         var user = req.user;
@@ -152,7 +152,7 @@ module.exports = function(passport) {
                         return checkuser(err);
 
                     if (user) {
-                        // if there is a user id already but no token (user was linked at one point and then removed)
+                      
                         if (!user.twitter.token) {
                             user.twitter.token       = token;
 							user.twitter.tokenSecret     = tokenSecret;
@@ -168,29 +168,29 @@ module.exports = function(passport) {
                             });
                         }
 
-                        return checkuser(null, user); // user found, return that user
+                        return checkuser(null, user); 
                     } else {
-                        // if there is no user, create them
-                        var newUser                 = new User();
+                        
+                        var store                 = new User();
 
-                        newUser.twitter.id          = profile.id;
-                        newUser.twitter.token       = token;
-						newUser.twitter.tokenSecret     = tokenSecret;
-                        newUser.twitter.username    = profile.username;
-                        newUser.twitter.displayName = profile.displayName;
+                        store.twitter.id          = profile.id;
+                        store.twitter.token       = token;
+						store.twitter.tokenSecret     = tokenSecret;
+                        store.twitter.username    = profile.username;
+                        store.twitter.displayName = profile.displayName;
 
-                        newUser.save(function(err) {
+                        store.save(function(err) {
                             if (err)
                                 return checkuser(err);
                                 
-                            return checkuser(null, newUser);
+                            return checkuser(null, store);
                         });
                     }
                 });
 
             } else {
-                // user already exists and is logged in, we have to link accounts
-                var user                 = req.user; // pull the user out of the session
+                
+                var user                 = req.user;
 
                 user.twitter.id          = profile.id;
                 user.twitter.token       = token;
