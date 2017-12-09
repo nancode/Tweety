@@ -25,7 +25,7 @@ mongoose.connect('mongodb://admin:admin@ds123956.mlab.com:23956/passport', { use
 require('./config/passport')(passport); // pass passport for configuration
 
 
-
+console.log("app listening at 3000 port");
 app.use(express.static('./public'));
 
 

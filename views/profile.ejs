@@ -19,11 +19,21 @@
  
 
    <div class="container">    
- <div class="text-center">
- 
-         <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+
+    <div class="text-center">
+        <h1>Tweeple</h1>
+
+    <div class="page-header text">
+  <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+
+	<br>
+	<br>
+	</div>
             
                 <h3 >Your Twitter info</h3>
+				 <br>
+ <br>
+ 
 
                 <% if (user.twitter.token) { %>
                     <p>
@@ -33,8 +43,9 @@
 
                         <strong>username</strong>: <%= user.twitter.username %>
                     </p>
-
-                    <a href="/unlink/twitter" class="btn btn-info">Unlink</a>
+ <br>
+ <br>
+             <a href="/unlink/twitter" class="btn btn-info">Unlink</a>
                 <% } else { %>
                     <a href="/connect/twitter" class="btn btn-info">Connect Twitter</a>
                 <% } %>
@@ -43,30 +54,14 @@
             </div>
  </div>
 
-<div class="container">
-       
-<div class="text-center">
-   <h3 >upload image</h3>
-    <form action="/upload" method="POST" enctype="multipart/form-data">
-      <div class="file-field input-field">
-        <div class="btn grey">
-          <span>File</span>
-          <input name="Ads" type="file">
-        </div>
-        <div class="file-path-wrapper">
-          <input class="file-path validate" type="text">
-        </div>
-      </div>
-      <button type="submit" class="btn btn-info">Submit</button>
-      
-
-    </form>
-    <br>
-    <img src="<%= typeof file != 'undefined' ? file : '' %>" class="responsive-img">
-  
+ <div class="text-center">
+ <br>
+ <br>
+ <br>
  
-</div>
-</div>
+ <a href="/adimages" class="btn btn-info"><strong>upload Image<strong> </a>
+ </div>
+
 
 </body>
 </html>

@@ -1,31 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+      <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
   
   <title>Tweeple</title>
+  
 </head>
 <body>
-  <div class="container">
-  <div class="col-sm-6 col-sm-offset-3">
-    <h3>Tweeple</h3>
+ 
+ <div class="container">
+
+    <div class="text-center">
+        <h1>Tweeple</h1>
+
+    <div class="page-header text">
+  <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+
+	<br>
+	<br>
+	</div>
+	<br><strong>Upload Image<strong><br>
     <%= typeof msg != 'undefined' ? msg : '' %>
     <form action="/upload" method="POST" enctype="multipart/form-data">
       <div class="file-field input-field">
-        <div class="btn grey">
+        <div class="btn btn-info">
           <span>File</span>
           <input name="Ads" type="file">
         </div>
         <div class="file-path-wrapper">
-          <input class="file-path validate" type="text">
+          <input class="file-path validate" type="text" placeholder ='Iterations'>
         </div>
       </div>
-      <button type="submit" class="btn">Submit</button>
+      <button type="submit" class="btn btn-info">Submit</button>
 	 <div> 
       <p>
+	  <br>
+	  <br>
+	  <br>
+	  <br>
       <a href="/connect/twitter" class="btn btn-info">Connect Twitter</a>
 	  </p>
 	  </div>
@@ -33,13 +45,8 @@
     <br>
     <img src="<%= typeof file != 'undefined' ? file : '' %>" class="responsive-img">
   </div>
-  <a href="/logout" class="btn btn-default btn-sm">Logout</a>
   </div>
-
-  <script
-  src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>  
+</div>
+  
 </body>
 </html>
