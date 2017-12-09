@@ -17,7 +17,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
-
+var imgpath1;
 
 
 mongoose.connect('mongodb://admin:admin@ds123956.mlab.com:23956/passport', { useMongoClient: true }); // connect to our database
@@ -25,7 +25,7 @@ mongoose.connect('mongodb://admin:admin@ds123956.mlab.com:23956/passport', { use
 require('./config/passport')(passport); // pass passport for configuration
 
 
-console.log("app listening at 3000 port");
+console.log("app listening at 3000 port here");
 app.use(express.static('./public'));
 
 
@@ -63,6 +63,7 @@ require('./app/routes.js')(app, passport); // load our routes and pass in our ap
 else{
 //	console.log("usersession "+user.session ) ;
 }
+
 
 
 // launch ======================================================================
