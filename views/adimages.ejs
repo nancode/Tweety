@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   
   <title>Tweeple</title>
 </head>
@@ -27,22 +27,26 @@
         <div class="btn">
           <span>File</span>
           <input name="Ads" type="file">
-          <input name="count" type="text" placeholder="Iterations needed">
+		  <br><br> 	
+          <input name="count" type="number" id="countElement" onChange="price()"  placeholder="No of ads">
         </div>
         <!-- <div class="file-path-wrapper">
           <input class="file-path validate" type="text">
         </div> -->
       </div>
       <br>
+	  <label> Each ad Costs $2 </label>
       <br>
-
+	  <label> PRICE </label>
+	<label id="price" ></label> 
+	<br><br><br>
       <button type="submit" class="btn btn-info">Buy Ads</button>
 	 <div> 
       <p>
         <br>
         <br>
       <a href="/connect/twitter" class="btn btn-info">Connect Twitter</a>
-	  </p>
+	  </p>.
 	  </div>
     </form>
     <br>
@@ -52,4 +56,11 @@
 </div>
   
 </body>
+<script>
+function price() {
+    var x = document.getElementById("countElement").value;
+    document.getElementById("price").innerHTML = "$"+2*x;
+}</script>
+
+}
 </html>
