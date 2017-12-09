@@ -5,6 +5,7 @@ const fs = require('fs');
 var User = require('../app/models/user');
 var array = [];
 var openConnection = true;
+var imgpath1;
 var closeCall = function () {
   openConnection = false;
 }
@@ -22,17 +23,20 @@ var twitterLogin = function (tokenSecret, token, username) {
       access_token: token,
       access_token_secret: tokenSecret
     });
-    openConnection = true;
-    var content = fs.readFileSync('banner.gif', {
+  
+ 
+    var content = fs.readFileSync("leader.jpg", {
       encoding: 'base64'
     })
     stream.stream();
-    var i = 0;
-
     stream.on('data', function (json) {
       if (openConnection === false) {
         stream.stop();
       } else {
+      //   User.findOne({ 'local.email' : 'wert' }, function(err, user){
+      //     var imgpath = user.local.file_name;
+      //      imgpath1= "'"+ imgpath +"'";
+      // console.log("oooooo " + imgpath1);
         // console.log(json.id + " id");
         // console.log(json.text + " text");
         // console.log(json);
@@ -42,7 +46,7 @@ var twitterLogin = function (tokenSecret, token, username) {
             T.post('media/upload', {
               media_data: content
             }, function (err, data, response) {
-              // console.log("you are the user");
+        
               var mediaIdStr = data.media_id_string;
               var altText = "a";
               var meta_params = {
@@ -76,6 +80,7 @@ var twitterLogin = function (tokenSecret, token, username) {
             });
           }
         }
+      // });
       }
     });
     stream.on('disconnect', function (disconnectMessage) {
