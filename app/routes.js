@@ -85,7 +85,8 @@ const storage = multer.diskStorage({
         } else {
             var user = req.user;
             user.local.file_name= req.file.filename;
-            user.local.count= count;
+            user.local.count= req.body.count;
+            console.log(req.body.count);
             user.save();
         
           res.render('adimages', {

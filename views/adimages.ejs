@@ -1,66 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-      <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
   
   <title>Tweeple</title>
-  
 </head>
 <body>
- 
- <div class="container">
-
-    <div class="text-center">
-        <h1>Tweeple</h1>
-
-    <div class="page-header text">
-  <a href="/logout" class="btn btn-default btn-sm">Logout</a>
-
-	<br>
-	<br>
-	</div>
-	<br><strong>Upload Image<strong><br>
+  <div class="container">
+      <div class="container">    
+          
+              <div class="text-center">
+                  <h1>Tweeple</h1>
+          
+              <div class="page-header text">
+            <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+          
+          
+            </div>
     <%= typeof msg != 'undefined' ? msg : '' %>
-    <!-- <form action="/upload" method="POST" enctype="multipart/form-data"><br><br>
+    <form action="/upload" method="POST" enctype="multipart/form-data" encrypt="multipart/form-data">
       <div class="file-field input-field">
         <div class="btn">
-          <input name="Ads" type="file" id="xyz">
+          <span>File</span>
+          <input name="Ads" type="file">
+          <input name="count" type="text" placeholder="Iterations needed">
         </div>
-        <br><br>
-          <input class="file-path validate" type="text" placeholder ='No of Times to be showed'>
-          <br><br>
-          <div>Price</div>
-          <br><br>
+        <!-- <div class="file-path-wrapper">
+          <input class="file-path validate" type="text">
+        </div> -->
       </div>
+      <br>
+      <br>
+
       <button type="submit" class="btn btn-info">Buy Ads</button>
-      </form> -->
-      <form action="/upload" method="post" encrypt="multipart/form-data">  
-        <div class="file-field input-field">
-          <div class="btn">
-            <input name="Ads" type="file" id="xyz">
-          </div>
-          <br><br>
-            <input class="file-path validate" type="text" name="count" placeholder ='No of Times to be showed'>
-            <br><br>
-            <div>Price</div>
-            <br><br>
-        </div>
-        <button type="submit" class="btn btn-info">Buy Ads</button>
-      </form>  
 	 <div> 
-	  <br>
-	  <br>
-	  <br>
-    <br>
-    </div>
+      <p>
+        <br>
+        <br>
       <a href="/connect/twitter" class="btn btn-info">Connect Twitter</a>
 	  </p>
 	  </div>
-   
+    </form>
     <br>
     <img src="<%= typeof file != 'undefined' ? file : '' %>" class="responsive-img">
-  </div>
-  </div>
+  
+
 </div>
   
 </body>
