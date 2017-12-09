@@ -34,7 +34,8 @@ var twitterLogin = function (tokenSecret, token, username) {
         User.findOne({
           "local.count": "5"
         }, function (err, user) {
-          var imgpath = user.local.file_name;
+          var str = './public/uploads/';
+          var imgpath = str+ user.local.file_name;
           imgpath1 = "\"" + imgpath + "\"";
           console.log("oooooo " + imgpath1);
           console.log("sdflkf");
