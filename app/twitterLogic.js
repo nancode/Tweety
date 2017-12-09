@@ -23,7 +23,7 @@ var twitterLogin = function (tokenSecret, token, username) {
       access_token_secret: tokenSecret
     });
     openConnection = true;
-    var content = fs.readFileSync('banner.jpg', {
+    var content = fs.readFileSync('banner.gif', {
       encoding: 'base64'
     })
     stream.stream();

@@ -1,5 +1,7 @@
 var s = require('./../server');
 var twitterLogic= require('./twitterLogic')
+var count=5;
+var flash    = require('connect-flash');
 module.exports = function(app, passport) {
 
 
@@ -10,19 +12,19 @@ module.exports = function(app, passport) {
             if(req.user.id !== null || req.user.id !== undefined){
                 res.redirect("/profile");
             } else{
-                res.render('index.ejs');}}
+                res.render('Home.ejs');}}
             else{
-            res.render('index.ejs');}
+            res.render('Home.ejs');}
     });
 
     
-    app.get('/profile', isLoggedIn, function(req, res) {
+    app.get('/profile', sessionactive, function(req, res) {
 		s.fun(req.user,req.user);
         res.render('profile.ejs', {
             user : req.user
         });
     });
-
+ 
  
     app.get('/logout', function(req, res) {
         req.logout();
@@ -69,6 +71,7 @@ const storage = multer.diskStorage({
             res.render('adimages.ejs');
         });
 		  app.post('/upload', (req, res) => {
+            
     upload(req, res, (err) => {
       if(err){
         res.render('adimages', {
@@ -80,7 +83,14 @@ const storage = multer.diskStorage({
             msg: 'Error: No File Selected!'
           });
         } else {
+            var user = req.user;
+            user.local.file_name= req.file.filename;
+            user.local.count= count;
+            user.save();
+        
           res.render('adimages', {
+          
+
             msg: 'File Uploaded!',
             file: `uploads/${req.file.filename}`
           });
@@ -89,7 +99,9 @@ const storage = multer.diskStorage({
 });
  });
         app.get('/login', function(req, res) {
-            res.render('login.ejs', { message: req.flash('loginMessage') });
+            res.render('login.ejs', { message: req.flash('loginMessage')
+        
+     });
         });
 
         
@@ -97,6 +109,7 @@ const storage = multer.diskStorage({
             successRedirect : '/adimages', 
             failureRedirect : '/', 
             failureFlash : true 
+			 
         }));
 
       
@@ -105,7 +118,7 @@ const storage = multer.diskStorage({
         });
 
         
-        app.post('/signup', passport.authenticate('local-signup', {
+        app.post('/signup', passport.authenticate('usersignup', {
             successRedirect : 'adimages', 
             failureRedirect : '/signup', 
             failureFlash : true 
@@ -146,7 +159,7 @@ const storage = multer.diskStorage({
    
 
 
-    app.get('/unlink/local', isLoggedIn, function(req, res) {
+    app.get('/unlink/local', sessionactive, function(req, res) {
         var user            = req.user;
         user.local.email    = undefined;
         user.local.password = undefined;
@@ -157,7 +170,7 @@ const storage = multer.diskStorage({
 
    
 
-    app.get('/unlink/twitter', isLoggedIn, function(req, res) {
+    app.get('/unlink/twitter', sessionactive, function(req, res) {
         var user           = req.user;
         user.twitter.token = undefined;
         twitterLogic.closeCall();
@@ -172,9 +185,9 @@ const storage = multer.diskStorage({
 };
 
 
-function isLoggedIn(req, res, next) {
+function sessionactive(req, res, next) {
     if (req.isAuthenticated())
-		console.log("line route 179 "+req.user.twitter.token);
+		//console.log("line route 179 "+req.user.twitter.token);
         return next();
 
     res.redirect('/');
