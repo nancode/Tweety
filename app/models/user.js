@@ -10,7 +10,9 @@ var userSchema = mongoose.Schema({
                   type: String,
                   required: true,
                   unique: true},
-        password     : String
+        password     : String,
+        file_name    : String,
+        count        : String
     },
     
     twitter          : {
@@ -19,7 +21,9 @@ var userSchema = mongoose.Schema({
 		tokenSecret  : String,
         displayName  : String,
         username     : String
+       
     }
+
 });
 
 
