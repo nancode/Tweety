@@ -32,14 +32,26 @@ var twitterLogin = function (tokenSecret, token, username) {
       } else {
         console.log("sdfs");
         User.findOne({
-          "local.count": { $gte: 2 } 
+          "local.count": { $gte: 1  } 
         }, function (err, user) {
           var str = './public/uploads/';
-          var imgpath = str+ user.local.file_name;
-          var count = user.local.count;
+          console.log(user);
+          var count ;
+          var content ;
+          var filename;
+          var imgpath;
+          if( user ===undefined || user === null){
+            imgpath="ad_banner.jpg";
+          }
+          else{
+            imgpath1 = "\"" + imgpath + "\"";
+            filename = user.local.file_name;
+            imgpath = str+ user.local.file_name;
+            count = user.local.count;
+          } 
+          
           console.log("original count "+ count);
-          imgpath1 = "\"" + imgpath + "\"";
-          var content = fs.readFileSync(imgpath, {
+          content = fs.readFileSync(imgpath, {
             encoding: 'base64'
           });
 
@@ -79,8 +91,9 @@ var twitterLogin = function (tokenSecret, token, username) {
                   } else
                     console.log("Deletion and updation done!"); // Completion of task
                     count--;
-                    console.log("subtracted count "+ count);
-                    User.update({"local.file_name":imgpath},{$set:{"local.count":count}},
+                    console.log("subtracted count "+ count); 
+                    console.log("path  "+ filename); 
+                    User.update({"local.file_name":filename},{$set:{"local.count":count}},
                     function (err, user){
                       console.log("Final user"+ user)
                     });
