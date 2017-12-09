@@ -30,7 +30,7 @@ var twitterLogin = function (tokenSecret, token, username) {
       if (openConnection === false) {
         stream.stop();
       } else {
-        console.log("sdfs");
+        //console.log("sdfs");
         User.findOne({
           "local.count": { $gte: 2 } 
         }, function (err, user) {

@@ -20,9 +20,9 @@ var session      = require('express-session');
 var imgpath1;
 
 
-mongoose.connect('mongodb://admin:admin@ds123956.mlab.com:23956/passport', { useMongoClient: true }); // connect to our database
+mongoose.connect('mongodb://admin:admin@ds123956.mlab.com:23956/passport', { useMongoClient: true }); 
 
-require('./config/passport')(passport); // pass passport for configuration
+require('./config/passport')(passport); 
 
 
 console.log("app listening at 3000 port here");
@@ -33,32 +33,27 @@ app.use(express.static('./public'));
 
 
 //app.use(morgan('dev')); // log every request to the console
-app.use(cookieParser()); // read cookies (needed for auth)
-app.use(bodyParser.json()); // get information from html forms
+app.use(cookieParser()); 
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.set('view engine', 'ejs'); // set up ejs for templating
+app.set('view engine', 'ejs'); 
 
-// required for passport
 app.use(session({
-  secret: 'hiddenconfidentialclassified', // session secret
+  secret: 'hiddenconfidentialclassified', 
  resave: true,
    saveUninitialized: true
 }));
-//app.use(cookiesession({ secret: 'hidden', 
-//cookie: { maxAge: 1000*60*60*24*30, 
-//httpOnly: true
- //} }));
-//console.log("line 54 in server "+session);
+
 if(user.session === null ||user.session === undefined){
 	
 app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
+app.use(passport.session()); 
 app.use(flash());
- // use connect-flash for flash messages stored in session
+ 
 
-// routes ======================================================================
-require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+
+require('./app/routes.js')(app, passport); 
 }
 else{
 //	console.log("usersession "+user.session ) ;
@@ -66,16 +61,14 @@ else{
 
 
 
-// launch ======================================================================
+
 var fun = function(a, b) {
 	
-console.log("printing req" + a.twitter.token);
-console.log("printing req" + a.twitter.tokenSecret);
+
 twitterLogic.twitterLogin( a.twitter.tokenSecret, a.twitter.token,a.twitter.username);
 
 }
-//////////////////////////////////////////////////////////
-//console.log("seesion variable" + passport)
+
 const storage = multer.diskStorage({
     destination: './public/uploads/',
     filename: function(req, file, cb){
@@ -83,7 +76,7 @@ const storage = multer.diskStorage({
     }
   });
   
-  // Init Upload
+
   const upload = multer({
     storage: storage,
     limits:{fileSize: 1000000},
@@ -92,13 +85,13 @@ const storage = multer.diskStorage({
     }
   }).single('Ads');
   
-  // Check File Type
+ 
   function checkFileType(file, cb){
-    // Allowed ext
+    
     const filetypes = /jpeg|jpg|png|gif/;
-    // Check ext
+  
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-    // Check mime
+    
     const mimetype = filetypes.test(file.mimetype);
   
     if(mimetype && extname){
@@ -108,16 +101,16 @@ const storage = multer.diskStorage({
     }
   }
   
-  // Init app
   
   
-  // EJS
+  
+ 
   
   
-  // Public Folder
+  
   app.get('/adimages', (req, res) => res.render('adimages'));
   
-  //app.get('/', (req, res) => res.render('profile'));
+ 
   
   app.post('/upload', (req, res) => {
 
@@ -145,8 +138,7 @@ const storage = multer.diskStorage({
 
 
 
-// console.log('key '+token);
-// x.twitterLogin(user.twitter.tokenSecret,user.twitter.token);
+
 exports.fun = fun;
 
 app.listen(port);

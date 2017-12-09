@@ -161,8 +161,7 @@ const storage = multer.diskStorage({
 
     app.get('/unlink/local', sessionactive, function(req, res) {
         var user            = req.user;
-        user.local.email    = undefined;
-        user.local.password = undefined;
+        
         user.save(function(err) {
             res.redirect('/profile');
         });
@@ -187,7 +186,7 @@ const storage = multer.diskStorage({
 
 function sessionactive(req, res, next) {
     if (req.isAuthenticated())
-		//console.log("line route 179 "+req.user.twitter.token);
+		
         return next();
 
     res.redirect('/');

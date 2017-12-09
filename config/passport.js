@@ -80,7 +80,7 @@ module.exports = function(passport) {
 
                
                     if (user) {
-                        return checkuser(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                        return checkuser(null, false, req.flash('signupMessage', 'username is already taken.'));
                     } else {
 
                        
