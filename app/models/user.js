@@ -12,7 +12,7 @@ var userSchema = mongoose.Schema({
                   unique: true},
         password     : String,
         file_name    : String,
-        count        : String
+        count        : Number
     },
     
     twitter          : {

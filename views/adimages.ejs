@@ -21,27 +21,42 @@
 	</div>
 	<br><strong>Upload Image<strong><br>
     <%= typeof msg != 'undefined' ? msg : '' %>
-    <form action="/upload" method="POST" enctype="multipart/form-data">
+    <!-- <form action="/upload" method="POST" enctype="multipart/form-data"><br><br>
       <div class="file-field input-field">
-        <div class="btn btn-info">
-          <span>File</span>
-          <input name="Ads" type="file">
+        <div class="btn">
+          <input name="Ads" type="file" id="xyz">
         </div>
-        <div class="file-path-wrapper">
-          <input class="file-path validate" type="text" placeholder ='Iterations'>
-        </div>
+        <br><br>
+          <input class="file-path validate" type="text" placeholder ='No of Times to be showed'>
+          <br><br>
+          <div>Price</div>
+          <br><br>
       </div>
-      <button type="submit" class="btn btn-info">Submit</button>
+      <button type="submit" class="btn btn-info">Buy Ads</button>
+      </form> -->
+      <form action="/upload" method="post" encrypt="multipart/form-data">  
+        <div class="file-field input-field">
+          <div class="btn">
+            <input name="Ads" type="file" id="xyz">
+          </div>
+          <br><br>
+            <input class="file-path validate" type="text" name="count" placeholder ='No of Times to be showed'>
+            <br><br>
+            <div>Price</div>
+            <br><br>
+        </div>
+        <button type="submit" class="btn btn-info">Buy Ads</button>
+      </form>  
 	 <div> 
-      <p>
 	  <br>
 	  <br>
 	  <br>
-	  <br>
+    <br>
+    </div>
       <a href="/connect/twitter" class="btn btn-info">Connect Twitter</a>
 	  </p>
 	  </div>
-    </form>
+   
     <br>
     <img src="<%= typeof file != 'undefined' ? file : '' %>" class="responsive-img">
   </div>

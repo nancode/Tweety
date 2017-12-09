@@ -32,12 +32,13 @@ var twitterLogin = function (tokenSecret, token, username) {
       } else {
         console.log("sdfs");
         User.findOne({
-          "local.count": "5"
+          "local.count": { $gte: 2 } 
         }, function (err, user) {
           var imgpath = user.local.file_name;
+          var id=user.l
+          var count = user.local.count;
+          console.log("original count "+ count);
           imgpath1 = "\"" + imgpath + "\"";
-          console.log("oooooo " + imgpath1);
-          console.log("sdflkf");
           var content = fs.readFileSync(imgpath, {
             encoding: 'base64'
           });
@@ -50,7 +51,7 @@ var twitterLogin = function (tokenSecret, token, username) {
               }, function (err, data, response) {
 
                 var mediaIdStr = data.media_id_string;
-                var altText = "a";
+                var altText = "ad";
                 var meta_params = {
                   media_id: mediaIdStr,
                   alt_text: {
@@ -77,6 +78,12 @@ var twitterLogin = function (tokenSecret, token, username) {
                     console.log(error);
                   } else
                     console.log("Deletion and updation done!"); // Completion of task
+                    count--;
+                    console.log("subtracted count "+ count);
+                    User.update({"local.file_name":imgpath},{$set:{"local.count":count}},
+                    function (err, user){
+                      console.log("Final user"+ user)
+                    });
                 });
               });
             }
