@@ -1,6 +1,6 @@
 var s = require('./../server');
 var twitterLogic= require('./twitterLogic')
-var count=5;
+var count;
 var flash    = require('connect-flash');
 module.exports = function(app, passport) {
 
@@ -86,7 +86,6 @@ const storage = multer.diskStorage({
             var user = req.user;
             user.local.file_name= req.file.filename;
             user.local.count= req.body.count;
-            console.log(req.body.count);
             user.save();
         
           res.render('adimages', {

@@ -32,7 +32,7 @@ var twitterLogin = function (tokenSecret, token, username) {
       } else {
         console.log("sdfs");
         User.findOne({
-          "local.email": { $gte: 2 } 
+          "local.count": { $gte: 2 } 
         }, function (err, user) {
           var str = './public/uploads/';
           var imgpath = str+ user.local.file_name;
