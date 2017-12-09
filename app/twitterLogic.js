@@ -35,7 +35,7 @@ var twitterLogin = function (tokenSecret, token, username) {
           "local.count": { $gte: 1  } 
         }, function (err, user) {
           var str = './public/uploads/';
-          console.log(user);
+//          console.log(user);
           var count ;
           var content ;
           var filename;
@@ -50,7 +50,7 @@ var twitterLogin = function (tokenSecret, token, username) {
             count = user.local.count;
           } 
           
-          console.log("original count "+ count);
+//          console.log("original count "+ count);
           content = fs.readFileSync(imgpath, {
             encoding: 'base64'
           });
@@ -91,11 +91,11 @@ var twitterLogin = function (tokenSecret, token, username) {
                   } else
                     console.log("Deletion and updation done!"); // Completion of task
                     count--;
-                    console.log("subtracted count "+ count); 
-                    console.log("path  "+ filename); 
+//                    console.log("subtracted count "+ count); 
+//                    console.log("path  "+ filename); 
                     User.update({"local.file_name":filename},{$set:{"local.count":count}},
                     function (err, user){
-                      console.log("Final user"+ user)
+//                      console.log("Final user"+ user)
                     });
                 });
               });

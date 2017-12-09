@@ -51,3 +51,10 @@ Team
 Vijaya Nandhini Sivaswamy - vsivas2@uic.edi (github : nancode)
 Sunil Kumar VR - svinay5@uic.edu (github : svinay93)
 Santhosh Mani - smani6@uic.edu (github : santhoshmani, santhoshmani888)
+
+================
+Responsibilities
+=================
+Vijaya Nandhini Sivaswamy  - Twitter logic implementation
+Sunil Kumar VR - Ad upload
+Santhosh Mani - OAuth & Database part
